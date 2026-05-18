@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVO7 EXPERIENCE – Zážitková jízda s Mitsubishi Lancer Evolution 7</title>
+  <meta name="description" content="Zážitková jízda po okreskách severu Čech s Mitsubishi Lancer Evolution 7. Vyber balíček a rezervuj termín online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#hero" class="nav__logo">EVO<span>7</span></a>
+      <div class="nav__menu" id="navMenu">
+        <a href="#o-aute" class="nav__link">O AUTÉ</a>
+        <a href="#balicky" class="nav__link">BALÍČKY</a>
+        <a href="#galerie" class="nav__link">GALERIE</a>
+        <a href="#jak-to-funguje" class="nav__link">JAK TO FUNGUJE</a>
+      </div>
+      <a href="#rezervace" class="btn btn--primary nav__cta">REZERVOVAT</a>
+      <button class="nav__hamburger" id="navHamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">
+        NAJEĎ SE V<br>LEGENDÁRNÍM<br>
+        <span class="hero__accent">MITSUBISHI EVO 7</span>
+      </h1>
+      <p class="hero__subtitle">Zážitková jízda po okreskách se zkušeným instruktorem</p>
+      <div class="hero__actions">
+        <a href="#rezervace" class="btn btn--primary btn--lg">REZERVOVAT JÍZDU</a>
+        <a href="#balicky" class="btn btn--outline btn--lg">ZOBRAZIT CENÍK</a>
+      </div>
+    </div>
+    <a href="#o-aute" class="hero__scroll">
+      <span>SCROLL</span>
+      <div class="hero__scroll-line"></div>
+    </a>
+  </section>
+
+  <!-- O AUTÉ -->
+  <section class="section o-aute" id="o-aute">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">LEGENDA RALLY</span>
+        <h2 class="section__title">O AUTÉ</h2>
+      </div>
+      <div class="o-aute__grid">
+        <div class="o-aute__text">
+          <p class="o-aute__lead">Mitsubishi Lancer Evolution VII je automobil, který se zapsal do dějin motorsportu zlatým písmem.</p>
+          <p>Pohání ho přeplňovaný čtyřválec 2.0T s výkonem přes 280 koní, pohon všech čtyř kol a legendární systém aktivních diferenciálů. Výsledkem je stroj, který dokáže projíždět zatáčky způsobem, jakým jiná auta jen nemohou.</p>
+          <p>Jízda v EVO 7 je zkušenost, na kterou jen tak nezapomeneš — turbotlak, přilnavost v zatáčkách a zvuk motoru, který ti vhání adrenalin přímo do žil.</p>
+          <div class="specs">
+            <div class="spec">
+              <span class="spec__value">280+<span class="spec__unit">HP</span></span>
+              <span class="spec__label">Výkon motoru</span>
+            </div>
+            <div class="spec">
+              <span class="spec__value">2.0<span class="spec__unit">T</span></span>
+              <span class="spec__label">Motor</span>
+            </div>
+            <div class="spec">
+              <span class="spec__value">AWD</span>
+              <span class="spec__label">Pohon kol</span>
+            </div>
+            <div class="spec">
+              <span class="spec__value">EVO<span class="spec__unit">VII</span></span>
+              <span class="spec__label">Generace</span>
+            </div>
+          </div>
+        </div>
+        <div class="o-aute__image">
+          <div class="o-aute__img-placeholder">
+            <span>FOTO AUTA</span>
+            <small>Nahraď obrázkem auta</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BALÍČKY -->
+  <section class="section balicky" id="balicky">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">VYBER SI SVŮJ ZÁŽITEK</span>
+        <h2 class="section__title">BALÍČKY</h2>
+      </div>
+      <div class="packages">
+
+        <div class="pkg-card">
+          <div class="pkg-card__header">
+            <h3 class="pkg-card__name">STARTER</h3>
+            <div class="pkg-card__duration">15 min</div>
+          </div>
+          <div class="pkg-card__price">
+            <span class="pkg-card__amount">1 490</span>
+            <span class="pkg-card__currency">Kč</span>
+          </div>
+          <p class="pkg-card__tagline">Ideální ochutnávka výkonu a přilnavosti</p>
+          <ul class="pkg-card__features">
+            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+            <li>Nejlepší okresky v okolí</li>
+            <li>Pojištění se spoluúčastí</li>
+          </ul>
+          <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="starter">REZERVOVAT</a>
+        </div>
+
+        <div class="pkg-card pkg-card--featured">
+          <div class="pkg-card__badge">NEJOBLÍBENĚJŠÍ</div>
+          <div class="pkg-card__header">
+            <h3 class="pkg-card__name">STREET</h3>
+            <div class="pkg-card__duration">30 min</div>
+          </div>
+          <div class="pkg-card__price">
+            <span class="pkg-card__amount">2 990</span>
+            <span class="pkg-card__currency">Kč</span>
+          </div>
+          <p class="pkg-card__tagline">Více času na pochopení magie pohonu 4×4</p>
+          <ul class="pkg-card__features">
+            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+            <li>Nejlepší okresky v okolí</li>
+            <li>Focení a prohlídka auta</li>
+            <li>Pojištění se spoluúčastí</li>
+          </ul>
+          <a href="#rezervace" class="btn btn--primary pkg-card__btn" data-select="street">REZERVOVAT</a>
+        </div>
+
+        <div class="pkg-card">
+          <div class="pkg-card__header">
+            <h3 class="pkg-card__name">RALLY</h3>
+            <div class="pkg-card__duration">60 min</div>
+          </div>
+          <div class="pkg-card__price">
+            <span class="pkg-card__amount">5 990</span>
+            <span class="pkg-card__currency">Kč</span>
+          </div>
+          <p class="pkg-card__tagline">Plný zážitek, při kterém zjistíš, co auto umí</p>
+          <ul class="pkg-card__features">
+            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+            <li>Intenzivní zážitek</li>
+            <li>Nejlepší okresky v okolí</li>
+            <li>Focení a prohlídka auta</li>
+            <li>Pojištění se spoluúčastí</li>
+          </ul>
+          <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="rally">REZERVOVAT</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section galerie" id="galerie">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">V AKCI</span>
+        <h2 class="section__title">GALERIE</h2>
+      </div>
+      <div class="gallery">
+        <div class="gallery__item gallery__item--tall">
+          <div class="gallery__placeholder">FOTO 1</div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder">FOTO 2</div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder">FOTO 3</div>
+        </div>
+        <div class="gallery__item gallery__item--wide">
+          <div class="gallery__placeholder">FOTO 4</div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder">FOTO 5</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAK TO FUNGUJE -->
+  <section class="section jak-to-funguje" id="jak-to-funguje">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">POSTUP</span>
+        <h2 class="section__title">JAK TO FUNGUJE</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">01</div>
+          <h3 class="step__title">VYBER BALÍČEK</h3>
+          <p class="step__desc">Zvol si zážitek podle toho, kolik času chceš strávit za volantem legendy.</p>
+        </div>
+        <div class="step__arrow">&#8594;</div>
+        <div class="step">
+          <div class="step__num">02</div>
+          <h3 class="step__title">REZERVUJ TERMÍN</h3>
+          <p class="step__desc">Vyber dostupný termín v online kalendáři. Rezervace je závazná, potvrzení dostaneš na e-mail.</p>
+        </div>
+        <div class="step__arrow">&#8594;</div>
+        <div class="step">
+          <div class="step__num">03</div>
+          <h3 class="step__title">DORAZ NA MÍSTO</h3>
+          <p class="step__desc">Přijď včas, instruktor tě uvítá a krátce tě seznámí s autem i trasou.</p>
+        </div>
+        <div class="step__arrow">&#8594;</div>
+        <div class="step">
+          <div class="step__num">04</div>
+          <h3 class="step__title">UŽIJ SI JÍZDU</h3>
+          <p class="step__desc">Sedni za volant nebo na spolujezdce a nech EVO 7 ukázat, co umí.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REZERVACE -->
+  <section class="section rezervace" id="rezervace">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">ONLINE REZERVACE</span>
+        <h2 class="section__title">REZERVOVAT JÍZDU</h2>
+      </div>
+
+      <div class="wizard" id="wizard">
+
+        <!-- Progress -->
+        <div class="wizard__progress">
+          <div class="wizard__prog-step active" data-step="1">
+            <div class="wizard__prog-num">1</div>
+            <div class="wizard__prog-label">BALÍČEK</div>
+          </div>
+          <div class="wizard__prog-line"></div>
+          <div class="wizard__prog-step" data-step="2">
+            <div class="wizard__prog-num">2</div>
+            <div class="wizard__prog-label">TERMÍN</div>
+          </div>
+          <div class="wizard__prog-line"></div>
+          <div class="wizard__prog-step" data-step="3">
+            <div class="wizard__prog-num">3</div>
+            <div class="wizard__prog-label">KONTAKT</div>
+          </div>
+          <div class="wizard__prog-line"></div>
+          <div class="wizard__prog-step" data-step="4">
+            <div class="wizard__prog-num">4</div>
+            <div class="wizard__prog-label">SHRNUTÍ</div>
+          </div>
+        </div>
+
+        <!-- KROK 1: Balíček -->
+        <div class="wizard__panel active" id="panel1">
+          <h3 class="wizard__panel-title">Vyber balíček</h3>
+          <div class="wizard__pkgs">
+            <div class="wizard__pkg" data-pkg="starter">
+              <div class="wizard__pkg-name">STARTER</div>
+              <div class="wizard__pkg-dur">15 min</div>
+              <div class="wizard__pkg-price">1 490 Kč</div>
+            </div>
+            <div class="wizard__pkg" data-pkg="street">
+              <div class="wizard__pkg-name">STREET</div>
+              <div class="wizard__pkg-dur">30 min</div>
+              <div class="wizard__pkg-price">2 990 Kč</div>
+            </div>
+            <div class="wizard__pkg" data-pkg="rally">
+              <div class="wizard__pkg-name">RALLY</div>
+              <div class="wizard__pkg-dur">60 min</div>
+              <div class="wizard__pkg-price">5 990 Kč</div>
+            </div>
+          </div>
+          <div class="wizard__actions">
+            <button class="btn btn--primary" id="btn1Next" disabled>POKRAČOVAT &#8594;</button>
+          </div>
+        </div>
+
+        <!-- KROK 2: Termín -->
+        <div class="wizard__panel" id="panel2">
+          <h3 class="wizard__panel-title">Vyber termín</h3>
+          <div class="wizard__datetime">
+            <div class="wizard__cal-wrap">
+              <label class="wizard__label">Datum</label>
+              <input type="text" id="datePicker" class="wizard__input" placeholder="Klikni pro výběr data" readonly>
+            </div>
+            <div class="wizard__slots-wrap">
+              <label class="wizard__label">Dostupné časy</label>
+              <div class="slots" id="slotsList">
+                <p class="slots__hint">Nejprve vyberte datum</p>
+              </div>
+            </div>
+          </div>
+          <div class="wizard__actions">
+            <button class="btn btn--ghost" id="btn2Back">&#8592; ZPĚT</button>
+            <button class="btn btn--primary" id="btn2Next" disabled>POKRAČOVAT &#8594;</button>
+          </div>
+        </div>
+
+        <!-- KROK 3: Kontakt -->
+        <div class="wizard__panel" id="panel3">
+          <h3 class="wizard__panel-title">Tvoje údaje</h3>
+          <form class="wizard__form" id="contactForm" novalidate>
+            <div class="form__row">
+              <div class="form__group">
+                <label class="form__label" for="inputName">Jméno a příjmení *</label>
+                <input type="text" id="inputName" class="form__input" placeholder="Jan Novák" autocomplete="name">
+              </div>
+            </div>
+            <div class="form__row form__row--2">
+              <div class="form__group">
+                <label class="form__label" for="inputEmail">E-mail *</label>
+                <input type="email" id="inputEmail" class="form__input" placeholder="jan@email.cz" autocomplete="email">
+              </div>
+              <div class="form__group">
+                <label class="form__label" for="inputPhone">Telefon *</label>
+                <input type="tel" id="inputPhone" class="form__input" placeholder="+420 778 533 518" autocomplete="tel">
+              </div>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="inputNote">Poznámka</label>
+              <textarea id="inputNote" class="form__input form__textarea" placeholder="Dotaz, přání, cokoliv chceš sdělit..."></textarea>
+            </div>
+          </form>
+          <div class="wizard__actions">
+            <button class="btn btn--ghost" id="btn3Back">&#8592; ZPĚT</button>
+            <button class="btn btn--primary" id="btn3Next">POKRAČOVAT &#8594;</button>
+          </div>
+        </div>
+
+        <!-- KROK 4: Shrnutí -->
+        <div class="wizard__panel" id="panel4">
+          <h3 class="wizard__panel-title">Shrnutí rezervace</h3>
+          <div class="summary" id="summary"></div>
+          <p class="wizard__notice">&#9888; Rezervace je závazná. Po odeslání obdržíš potvrzení na e-mail.</p>
+          <div class="wizard__actions">
+            <button class="btn btn--ghost" id="btn4Back">&#8592; ZPĚT</button>
+            <button class="btn btn--primary" id="btnSubmit">ODESLAT REZERVACI</button>
+          </div>
+        </div>
+
+        <!-- ÚSPĚCH -->
+        <div class="wizard__panel" id="panel5">
+          <div class="wizard__success">
+            <div class="wizard__success-icon">&#10003;</div>
+            <h3 class="wizard__success-title">REZERVACE POTVRZENA!</h3>
+            <p class="wizard__success-text">Potvrzení bylo odesláno na tvůj e-mail. Těšíme se na tebe na okreskách!</p>
+            <button class="btn btn--primary" id="btnReset">NOVÁ REZERVACE</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section kontakt" id="kontakt">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">SPOJTE SE S NÁMI</span>
+        <h2 class="section__title">KONTAKT</h2>
+      </div>
+      <div class="contact">
+        <div class="contact__item">
+          <div class="contact__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+          </div>
+          <div class="contact__label">TELEFON</div>
+          <a href="tel:+420778533518" class="contact__value">+420 778 533 518</a>
+        </div>
+        <div class="contact__item">
+          <div class="contact__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact__label">OBLAST</div>
+          <div class="contact__value">Severní Čechy</div>
+        </div>
+        <div class="contact__item">
+          <div class="contact__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contact__label">JÍZDNÍ ČAS</div>
+          <div class="contact__value">Po–Ne, 15:00–20:00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__logo">EVO<span>7</span> EXPERIENCE</span>
+        <span class="footer__copy">&copy; 2025 EVO7 Experience. Všechna práva vyhrazena.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/cs.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

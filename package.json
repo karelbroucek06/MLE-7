@@ -1,0 +1,9 @@
+{
+  "name": "evo7-experience",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EVO7 Experience – zážitková jízda s Mitsubishi Lancer Evolution 7",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}
