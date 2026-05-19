@@ -3,21 +3,32 @@
    ============================================================ */
 
 const PACKAGES = {
-  starter: { label: 'STARTER', duration: 15, price: '1 490 Kč' },
-  street:  { label: 'STREET',  duration: 30, price: '2 990 Kč' },
-  rally:   { label: 'RALLY',   duration: 60, price: '5 990 Kč' },
+  // Okresky
+  starter:       { label: 'STARTER',        duration: 15, price: '1 490 Kč', exp: 'okresky' },
+  street:        { label: 'STREET',          duration: 30, price: '2 990 Kč', exp: 'okresky' },
+  rally:         { label: 'RALLY',           duration: 60, price: '5 990 Kč', exp: 'okresky' },
+  // Sosnová
+  'track-intro':   { label: 'TRACK INTRO',   duration: 15, price: 'TBD',      exp: 'sosnova' },
+  'track-session': { label: 'TRACK SESSION', duration: 30, price: 'TBD',      exp: 'sosnova' },
+  'track-master':  { label: 'TRACK MASTER',  duration: 60, price: 'TBD',      exp: 'sosnova' },
+};
+
+const EXP_LABELS = {
+  okresky: 'Okresky — Severní Čechy',
+  sosnova: 'Okruh Sosnová',
 };
 
 /* ── State ────────────────────────────────────────────────── */
 const state = {
-  step:     1,
-  package:  null,
-  date:     null,
-  time:     null,
-  name:     '',
-  email:    '',
-  phone:    '',
-  note:     '',
+  step:       1,
+  experience: 'okresky',
+  package:    null,
+  date:       null,
+  time:       null,
+  name:       '',
+  email:      '',
+  phone:      '',
+  note:       '',
 };
 
 /* ── Navigation ───────────────────────────────────────────── */
@@ -41,10 +52,50 @@ document.querySelectorAll('.nav__link').forEach(link => {
   });
 });
 
-/* ── Package cards → pre-select in wizard ─────────────────── */
+/* ── Experience tabs (globální přepínač) ──────────────────── */
+/**
+ * Synchronizuje všechny skupiny záložek podle aktuální experience.
+ * Skupiny: #carTabs, #pkgTabs, #wizardTabs — každá sdílí stejný data-exp
+ */
+function syncExpTabs(exp) {
+  // Záložky
+  document.querySelectorAll('.exp-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.exp === exp);
+  });
+
+  // Panely v sekci O autech a Balíčky
+  document.querySelectorAll('[data-exp-panel]').forEach(panel => {
+    const panelExp = panel.dataset.expPanel.replace('-wizard', '');
+    panel.classList.toggle('active', panelExp === exp);
+  });
+}
+
+document.querySelectorAll('.exp-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const exp = tab.dataset.exp;
+
+    // Reset balíčku a slotů při přepnutí experience
+    if (exp !== state.experience) {
+      state.experience = exp;
+      state.package    = null;
+      state.time       = null;
+      document.querySelectorAll('.wizard__pkg').forEach(el => el.classList.remove('selected'));
+      document.getElementById('btn1Next').disabled = true;
+      if (state.date) fetchSlots(state.date);
+    }
+
+    syncExpTabs(exp);
+  });
+});
+
+/* ── Package cards → pre-select v wizardu ─────────────────── */
 document.querySelectorAll('[data-select]').forEach(btn => {
   btn.addEventListener('click', () => {
     const pkg = btn.dataset.select;
+    const exp = btn.dataset.exp;
+    // Přepni experience a balíček
+    state.experience = exp;
+    syncExpTabs(exp);
     selectPackage(pkg);
   });
 });
@@ -68,7 +119,7 @@ function goToPanel(n) {
   state.step = n;
 }
 
-/* ── Step 1: Package ──────────────────────────────────────── */
+/* ── Step 1: Balíček ──────────────────────────────────────── */
 function selectPackage(pkg) {
   state.package = pkg;
   state.time    = null;
@@ -79,12 +130,14 @@ function selectPackage(pkg) {
 
   document.getElementById('btn1Next').disabled = false;
 
-  // reset slots if date already selected
   if (state.date) fetchSlots(state.date);
 }
 
 document.querySelectorAll('.wizard__pkg').forEach(el => {
-  el.addEventListener('click', () => selectPackage(el.dataset.pkg));
+  el.addEventListener('click', () => {
+    // Pokud se klikne na balíček v jiném exp panelu, ignoruj (je skrytý)
+    selectPackage(el.dataset.pkg);
+  });
 });
 
 document.getElementById('btn1Next').addEventListener('click', () => {
@@ -93,13 +146,13 @@ document.getElementById('btn1Next').addEventListener('click', () => {
   document.querySelector('#rezervace').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
-/* ── Step 2: Date & Time ──────────────────────────────────── */
+/* ── Step 2: Datum & Čas ──────────────────────────────────── */
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 flatpickr('#datePicker', {
   locale: 'cs',
-  minDate: new Date(today.getTime() + 86400000), // tomorrow
+  minDate: new Date(today.getTime() + 86400000),
   dateFormat: 'Y-m-d',
   altInput: true,
   altFormat: 'j. F Y',
@@ -125,7 +178,9 @@ async function fetchSlots(date) {
   list.innerHTML = '<p class="slots__loading">Načítám dostupné časy…</p>';
 
   try {
-    const res  = await fetch(`/.netlify/functions/get-availability?date=${date}&package=${state.package}`);
+    const res  = await fetch(
+      `/.netlify/functions/get-availability?date=${date}&package=${state.package}&experience=${state.experience}`
+    );
     const data = await res.json();
 
     if (!res.ok) throw new Error(data.error || 'Chyba serveru');
@@ -161,7 +216,7 @@ document.getElementById('btn2Next').addEventListener('click', () => {
   goToPanel(3);
 });
 
-/* ── Step 3: Contact ──────────────────────────────────────── */
+/* ── Step 3: Kontakt ──────────────────────────────────────── */
 document.getElementById('btn3Back').addEventListener('click', () => goToPanel(2));
 document.getElementById('btn3Next').addEventListener('click', () => {
   if (!validateContact()) return;
@@ -181,20 +236,21 @@ function validateContact() {
 
   [name, email, phone].forEach(f => f.classList.remove('error'));
 
-  if (!name.value.trim()) { name.classList.add('error'); ok = false; }
+  if (!name.value.trim())                              { name.classList.add('error');  ok = false; }
   if (!email.value.trim() || !email.value.includes('@')) { email.classList.add('error'); ok = false; }
-  if (!phone.value.trim()) { phone.classList.add('error'); ok = false; }
+  if (!phone.value.trim())                             { phone.classList.add('error'); ok = false; }
 
   return ok;
 }
 
-/* ── Step 4: Summary ──────────────────────────────────────── */
+/* ── Step 4: Shrnutí ──────────────────────────────────────── */
 function buildSummary() {
-  const pkg  = PACKAGES[state.package];
+  const pkg     = PACKAGES[state.package];
   const dateObj = new Date(state.date + 'T12:00:00');
   const dateStr = dateObj.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
 
   const rows = [
+    ['ZÁŽITEK',  EXP_LABELS[state.experience]],
     ['BALÍČEK',  `${pkg.label} — ${pkg.duration} min`],
     ['DATUM',    dateStr],
     ['ČAS',      state.time],
@@ -208,13 +264,12 @@ function buildSummary() {
   document.getElementById('summary').innerHTML = rows.map(([k, v], i) => `
     <div class="summary__row">
       <span class="summary__key">${k}</span>
-      <span class="summary__val${i === 3 ? ' summary__val--accent' : ''}">${v}</span>
+      <span class="summary__val${i === 4 ? ' summary__val--accent' : ''}">${v}</span>
     </div>
   `).join('');
 }
 
 document.getElementById('btn4Back').addEventListener('click', () => goToPanel(3));
-
 document.getElementById('btnSubmit').addEventListener('click', submitReservation);
 
 async function submitReservation() {
@@ -227,13 +282,14 @@ async function submitReservation() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        package:  state.package,
-        date:     state.date,
-        time:     state.time,
-        name:     state.name,
-        email:    state.email,
-        phone:    state.phone,
-        note:     state.note,
+        experience: state.experience,
+        package:    state.package,
+        date:       state.date,
+        time:       state.time,
+        name:       state.name,
+        email:      state.email,
+        phone:      state.phone,
+        note:       state.note,
       }),
     });
 
@@ -249,31 +305,30 @@ async function submitReservation() {
   }
 }
 
+/* ── Reset ────────────────────────────────────────────────── */
 document.getElementById('btnReset').addEventListener('click', () => {
-  // Reset state
-  state.step    = 1;
-  state.package = null;
-  state.date    = null;
-  state.time    = null;
-  state.name    = '';
-  state.email   = '';
-  state.phone   = '';
-  state.note    = '';
+  state.step       = 1;
+  state.experience = 'okresky';
+  state.package    = null;
+  state.date       = null;
+  state.time       = null;
+  state.name       = '';
+  state.email      = '';
+  state.phone      = '';
+  state.note       = '';
 
   document.querySelectorAll('.wizard__pkg').forEach(el => el.classList.remove('selected'));
   document.getElementById('btn1Next').disabled = true;
   document.getElementById('btn2Next').disabled = true;
   document.getElementById('slotsList').innerHTML = '<p class="slots__hint">Nejprve vyberte datum</p>';
-
-  // Reset flatpickr
   document.getElementById('datePicker')._flatpickr.clear();
 
-  // Reset form
   ['inputName', 'inputEmail', 'inputPhone', 'inputNote'].forEach(id => {
     document.getElementById(id).value = '';
     document.getElementById(id).classList.remove('error');
   });
 
+  syncExpTabs('okresky');
   goToPanel(1);
   document.querySelector('#rezervace').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });

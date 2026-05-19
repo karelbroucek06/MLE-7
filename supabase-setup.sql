@@ -5,7 +5,9 @@
 
 CREATE TABLE IF NOT EXISTS reservations (
   id         UUID        DEFAULT gen_random_uuid() PRIMARY KEY,
-  package    TEXT        NOT NULL CHECK (package IN ('starter', 'street', 'rally')),
+  experience TEXT        NOT NULL DEFAULT 'okresky'
+               CHECK (experience IN ('okresky', 'sosnova')),
+  package    TEXT        NOT NULL CHECK (package IN ('starter', 'street', 'rally', 'track-intro', 'track-session', 'track-master')),
   date       DATE        NOT NULL,
   start_time TIME        NOT NULL,
   end_time   TIME        NOT NULL,  -- start + jízda + 60 min buffer
@@ -17,6 +19,10 @@ CREATE TABLE IF NOT EXISTS reservations (
                CHECK (status IN ('confirmed', 'cancelled')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Pokud tabulka už existuje, přidej sloupec experience (bezpečný příkaz):
+-- ALTER TABLE reservations ADD COLUMN IF NOT EXISTS experience TEXT NOT NULL DEFAULT 'okresky'
+--   CHECK (experience IN ('okresky', 'sosnova'));
 
 -- Index pro rychlé hledání podle data
 CREATE INDEX IF NOT EXISTS reservations_date_idx

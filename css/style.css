@@ -13,7 +13,7 @@
   --border:       rgba(255, 230, 0, 0.18);
   --border-dim:   rgba(255, 255, 255, 0.08);
   --radius:       3px;
-  --font-head:    'Orbitron', monospace;
+  --font-head:    'Orbitron', 'Exo 2', monospace;
   --font-body:    'Inter', sans-serif;
   --container:    1200px;
   --nav-h:        72px;
@@ -166,7 +166,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: url('../images/hero-bg.jpg') center center / cover no-repeat;
+  background: url('../photos/hero-bg.jpg') center center / cover no-repeat;
   opacity: 0.18;
   pointer-events: none;
 }
@@ -304,6 +304,72 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0.1em;
 }
 .o-aute__img-placeholder small { font-family: var(--font-body); font-size: 11px; opacity: 0.5; }
+.o-aute__image img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+/* ── Experience tabs ───────────────────────────────────────── */
+.exp-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.exp-tabs--center { justify-content: center; }
+.exp-tabs--sm { margin-bottom: 28px; }
+
+.exp-tab {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px;
+  border: 2px solid var(--border-dim);
+  border-radius: var(--radius);
+  background: var(--bg-card-2);
+  color: var(--text-muted);
+  font-family: var(--font-head);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+.exp-tab:hover {
+  border-color: rgba(255,230,0,0.35);
+  color: var(--text);
+}
+.exp-tab.active {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(255,230,0,0.08) 0%, transparent 60%);
+  color: var(--text);
+}
+.exp-tab__icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+.exp-tab.active .exp-tab__icon { color: var(--accent); }
+.exp-tab__name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.exp-tab__sub {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.exp-tab.active .exp-tab__sub { color: rgba(255,230,0,0.6); }
+
+/* Experience panels */
+.exp-panel { display: none; }
+.exp-panel.active { display: block; }
 
 /* ── Balíčky ───────────────────────────────────────────────── */
 .balicky { background: var(--bg); }
@@ -377,6 +443,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--text-muted);
   margin-left: 4px;
 }
+.pkg-card__badge--soon {
+  background: #1a1a1a;
+  color: var(--text-muted);
+  border: 1px solid var(--border-dim);
+}
+.pkg-card__price--tbd { margin-bottom: 12px; }
+.pkg-card__tbd {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
 .pkg-card__tagline {
   font-size: 14px;
   color: var(--text-muted);
@@ -846,6 +926,11 @@ a.contact__value:hover { color: var(--accent); }
 .footer__copy { font-size: 13px; color: var(--text-muted); }
 
 /* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .exp-tabs { flex-direction: column; }
+  .exp-tab { justify-content: flex-start; }
+}
+
 @media (max-width: 900px) {
   .nav__menu, .nav__cta { display: none; }
   .nav__hamburger { display: flex; }

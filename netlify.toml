@@ -5,9 +5,26 @@
 [functions]
   node_bundler = "esbuild"
 
+# ── Bezpečnostní hlavičky (celý web) ──────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options        = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy        = "strict-origin-when-cross-origin"
+
+# ── Admin stránka — blokuj indexaci vyhledávači ───────────────
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+
+# ── Redirect: admin.evo7.cz → /admin.html ─────────────────────
+# Netlify musí mít admin.evo7.cz přidané jako domain alias
+# Site settings → Domain management → Add domain alias
+[[redirects]]
+  from       = "/"
+  to         = "/admin.html"
+  status     = 302
+  force      = true
+  conditions = { Host = ["admin.evo7.cz"] }

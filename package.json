@@ -4,6 +4,7 @@
   "private": true,
   "description": "EVO7 Experience – zážitková jízda s Mitsubishi Lancer Evolution 7",
   "dependencies": {
-    "@supabase/supabase-js": "^2.45.0"
+    "@supabase/supabase-js": "^2.45.0",
+    "nodemailer": "^6.9.14"
   }
 }

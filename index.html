@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EVO7 EXPERIENCE – Zážitková jízda s Mitsubishi Lancer Evolution 7</title>
-  <meta name="description" content="Zážitková jízda po okreskách severu Čech s Mitsubishi Lancer Evolution 7. Vyber balíček a rezervuj termín online.">
+  <meta name="description" content="Zážitková jízda s Mitsubishi Lancer Evolution 7 — okresky v severních Čechách nebo závodní okruh Sosnová. Rezervuj online.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,7 +19,7 @@
     <div class="nav__container">
       <a href="#hero" class="nav__logo">EVO<span>7</span></a>
       <div class="nav__menu" id="navMenu">
-        <a href="#o-aute" class="nav__link">O AUTÉ</a>
+        <a href="#o-aute" class="nav__link">O AUTECH</a>
         <a href="#balicky" class="nav__link">BALÍČKY</a>
         <a href="#galerie" class="nav__link">GALERIE</a>
         <a href="#jak-to-funguje" class="nav__link">JAK TO FUNGUJE</a>
@@ -35,13 +36,13 @@
     <div class="hero__overlay"></div>
     <div class="hero__content">
       <h1 class="hero__title">
-        NAJEĎ SE V<br>LEGENDÁRNÍM<br>
+        ZAŽIJ LEGENDU<br>
         <span class="hero__accent">MITSUBISHI EVO 7</span>
       </h1>
-      <p class="hero__subtitle">Zážitková jízda po okreskách se zkušeným instruktorem</p>
+      <p class="hero__subtitle">Okresky nebo závodní okruh <br>stačí si vybrat</p>
       <div class="hero__actions">
         <a href="#rezervace" class="btn btn--primary btn--lg">REZERVOVAT JÍZDU</a>
-        <a href="#balicky" class="btn btn--outline btn--lg">ZOBRAZIT CENÍK</a>
+        <a href="#balicky" class="btn btn--outline btn--lg">ZOBRAZIT BALÍČKY</a>
       </div>
     </div>
     <a href="#o-aute" class="hero__scroll">
@@ -50,44 +51,96 @@
     </a>
   </section>
 
-  <!-- O AUTÉ -->
+  <!-- O AUTECH -->
   <section class="section o-aute" id="o-aute">
     <div class="container">
       <div class="section__header">
-        <span class="section__label">LEGENDA RALLY</span>
-        <h2 class="section__title">O AUTÉ</h2>
+        <span class="section__label">DVA ZÁŽITKY, JEDNA LEGENDA</span>
+        <h2 class="section__title">O AUTECH</h2>
       </div>
-      <div class="o-aute__grid">
-        <div class="o-aute__text">
-          <p class="o-aute__lead">Mitsubishi Lancer Evolution VII je automobil, který se zapsal do dějin motorsportu zlatým písmem.</p>
-          <p>Pohání ho přeplňovaný čtyřválec 2.0T s výkonem přes 280 koní, pohon všech čtyř kol a legendární systém aktivních diferenciálů. Výsledkem je stroj, který dokáže projíždět zatáčky způsobem, jakým jiná auta jen nemohou.</p>
-          <p>Jízda v EVO 7 je zkušenost, na kterou jen tak nezapomeneš — turbotlak, přilnavost v zatáčkách a zvuk motoru, který ti vhání adrenalin přímo do žil.</p>
-          <div class="specs">
-            <div class="spec">
-              <span class="spec__value">280+<span class="spec__unit">HP</span></span>
-              <span class="spec__label">Výkon motoru</span>
-            </div>
-            <div class="spec">
-              <span class="spec__value">2.0<span class="spec__unit">T</span></span>
-              <span class="spec__label">Motor</span>
-            </div>
-            <div class="spec">
-              <span class="spec__value">AWD</span>
-              <span class="spec__label">Pohon kol</span>
-            </div>
-            <div class="spec">
-              <span class="spec__value">EVO<span class="spec__unit">VII</span></span>
-              <span class="spec__label">Generace</span>
+
+      <!-- Experience tabs -->
+      <div class="exp-tabs exp-tabs--center" id="carTabs">
+        <button class="exp-tab active" data-exp="okresky">
+          <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg>
+          <div>
+            <div class="exp-tab__name">OKRESKY</div>
+            <div class="exp-tab__sub">Severní Čechy</div>
+          </div>
+        </button>
+        <button class="exp-tab" data-exp="sosnova">
+          <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <div>
+            <div class="exp-tab__name">OKRUH SOSNOVÁ</div>
+            <div class="exp-tab__sub">Závodní okruh</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Okresky car info -->
+      <div class="exp-panel active" data-exp-panel="okresky">
+        <div class="o-aute__grid">
+          <div class="o-aute__text">
+            <p class="o-aute__lead">Mitsubishi Lancer Evolution VII připravený na okresky — jízda po nejlepších silnicích severních Čech.</p>
+            <p>Přeplňovaný čtyřválec 2.0T, výkon přes 280 koní a systém pohonu všech čtyř kol. Auto, které dokáže projíždět zatáčky způsobem, jakým jiná auta jen nemohou.</p>
+            <p>Sedni za volant nebo na spolujezdce a pocit turbotlaku, přilnavosti a zvuku motoru si zažij na vlastní kůži — po skutečných silnicích, ne na okruhu.</p>
+            <div class="specs">
+              <div class="spec">
+                <span class="spec__value">280+<span class="spec__unit">HP</span></span>
+                <span class="spec__label">Výkon</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">2.0<span class="spec__unit">T</span></span>
+                <span class="spec__label">Motor</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">AWD</span>
+                <span class="spec__label">Pohon</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">EVO<span class="spec__unit">VII</span></span>
+                <span class="spec__label">Generace</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="o-aute__image">
-          <div class="o-aute__img-placeholder">
-            <span>FOTO AUTA</span>
-            <small>Nahraď obrázkem auta</small>
+          <div class="o-aute__image">
+            <img src="photos/5.jpg" alt="Mitsubishi Lancer Evolution 7 — okresky" loading="lazy" style="object-position: 55% center;">
           </div>
         </div>
       </div>
+
+      <!-- Sosnová car info -->
+      <div class="exp-panel" data-exp-panel="sosnova">
+        <div class="o-aute__grid">
+          <div class="o-aute__text">
+            <p class="o-aute__lead">Mitsubishi Lancer Evolution VII ve výbavě pro závodní okruh Sosnová — čistý výkon bez kompromisů.</p>
+            <p>Okruh Sosnová u České Lípy je jedním z nejlepších závodních okruhů v severních Čechách. Kombinace technických zatáček a rovinek ti dá pochopit, co EVO 7 skutečně umí na hranici svých možností.</p>
+            <p>Zkušený instruktor tě provede celým okruhem — naučíš se správné brzdné body, apex a výjezdy, nebo si prostě jen užiješ čistý adrenalin.</p>
+            <div class="specs">
+              <div class="spec">
+                <span class="spec__value">280+<span class="spec__unit">HP</span></span>
+                <span class="spec__label">Výkon</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">AWD</span>
+                <span class="spec__label">Pohon</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">3.2<span class="spec__unit">km</span></span>
+                <span class="spec__label">Okruh</span>
+              </div>
+              <div class="spec">
+                <span class="spec__value">SOS<span class="spec__unit">NOV</span></span>
+                <span class="spec__label">Místo</span>
+              </div>
+            </div>
+          </div>
+          <div class="o-aute__image">
+            <img src="photos/2.jpg" alt="Mitsubishi Lancer Evolution 7 — okruh Sosnová" loading="lazy">
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -98,67 +151,154 @@
         <span class="section__label">VYBER SI SVŮJ ZÁŽITEK</span>
         <h2 class="section__title">BALÍČKY</h2>
       </div>
-      <div class="packages">
 
-        <div class="pkg-card">
-          <div class="pkg-card__header">
-            <h3 class="pkg-card__name">STARTER</h3>
-            <div class="pkg-card__duration">15 min</div>
+      <!-- Experience tabs -->
+      <div class="exp-tabs exp-tabs--center" id="pkgTabs">
+        <button class="exp-tab active" data-exp="okresky">
+          <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg>
+          <div>
+            <div class="exp-tab__name">OKRESKY</div>
+            <div class="exp-tab__sub">Severní Čechy</div>
           </div>
-          <div class="pkg-card__price">
-            <span class="pkg-card__amount">1 490</span>
-            <span class="pkg-card__currency">Kč</span>
+        </button>
+        <button class="exp-tab" data-exp="sosnova">
+          <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <div>
+            <div class="exp-tab__name">OKRUH SOSNOVÁ</div>
+            <div class="exp-tab__sub">Závodní okruh</div>
           </div>
-          <p class="pkg-card__tagline">Ideální ochutnávka výkonu a přilnavosti</p>
-          <ul class="pkg-card__features">
-            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
-            <li>Nejlepší okresky v okolí</li>
-            <li>Pojištění se spoluúčastí</li>
-          </ul>
-          <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="starter">REZERVOVAT</a>
-        </div>
-
-        <div class="pkg-card pkg-card--featured">
-          <div class="pkg-card__badge">NEJOBLÍBENĚJŠÍ</div>
-          <div class="pkg-card__header">
-            <h3 class="pkg-card__name">STREET</h3>
-            <div class="pkg-card__duration">30 min</div>
-          </div>
-          <div class="pkg-card__price">
-            <span class="pkg-card__amount">2 990</span>
-            <span class="pkg-card__currency">Kč</span>
-          </div>
-          <p class="pkg-card__tagline">Více času na pochopení magie pohonu 4×4</p>
-          <ul class="pkg-card__features">
-            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
-            <li>Nejlepší okresky v okolí</li>
-            <li>Focení a prohlídka auta</li>
-            <li>Pojištění se spoluúčastí</li>
-          </ul>
-          <a href="#rezervace" class="btn btn--primary pkg-card__btn" data-select="street">REZERVOVAT</a>
-        </div>
-
-        <div class="pkg-card">
-          <div class="pkg-card__header">
-            <h3 class="pkg-card__name">RALLY</h3>
-            <div class="pkg-card__duration">60 min</div>
-          </div>
-          <div class="pkg-card__price">
-            <span class="pkg-card__amount">5 990</span>
-            <span class="pkg-card__currency">Kč</span>
-          </div>
-          <p class="pkg-card__tagline">Plný zážitek, při kterém zjistíš, co auto umí</p>
-          <ul class="pkg-card__features">
-            <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
-            <li>Intenzivní zážitek</li>
-            <li>Nejlepší okresky v okolí</li>
-            <li>Focení a prohlídka auta</li>
-            <li>Pojištění se spoluúčastí</li>
-          </ul>
-          <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="rally">REZERVOVAT</a>
-        </div>
-
+        </button>
       </div>
+
+      <!-- OKRESKY packages -->
+      <div class="exp-panel active" data-exp-panel="okresky">
+        <div class="packages">
+
+          <div class="pkg-card">
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">STARTER</h3>
+              <div class="pkg-card__duration">15 min</div>
+            </div>
+            <div class="pkg-card__price">
+              <span class="pkg-card__amount">1 490</span>
+              <span class="pkg-card__currency">Kč</span>
+            </div>
+            <p class="pkg-card__tagline">Ideální ochutnávka výkonu a přilnavosti</p>
+            <ul class="pkg-card__features">
+              <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+              <li>Nejlepší okresky v okolí</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="starter" data-exp="okresky">REZERVOVAT</a>
+          </div>
+
+          <div class="pkg-card pkg-card--featured">
+            <div class="pkg-card__badge">NEJOBLÍBENĚJŠÍ</div>
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">STREET</h3>
+              <div class="pkg-card__duration">30 min</div>
+            </div>
+            <div class="pkg-card__price">
+              <span class="pkg-card__amount">2 990</span>
+              <span class="pkg-card__currency">Kč</span>
+            </div>
+            <p class="pkg-card__tagline">Více času na pochopení magie pohonu 4×4</p>
+            <ul class="pkg-card__features">
+              <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+              <li>Nejlepší okresky v okolí</li>
+              <li>Focení a prohlídka auta</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--primary pkg-card__btn" data-select="street" data-exp="okresky">REZERVOVAT</a>
+          </div>
+
+          <div class="pkg-card">
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">RALLY</h3>
+              <div class="pkg-card__duration">60 min</div>
+            </div>
+            <div class="pkg-card__price">
+              <span class="pkg-card__amount">5 990</span>
+              <span class="pkg-card__currency">Kč</span>
+            </div>
+            <p class="pkg-card__tagline">Plný zážitek, při kterém zjistíš, co auto umí</p>
+            <ul class="pkg-card__features">
+              <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+              <li>Intenzivní zážitek</li>
+              <li>Nejlepší okresky v okolí</li>
+              <li>Focení a prohlídka auta</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="rally" data-exp="okresky">REZERVOVAT</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SOSNOVÁ packages -->
+      <div class="exp-panel" data-exp-panel="sosnova">
+        <div class="packages">
+
+          <div class="pkg-card">
+            <div class="pkg-card__badge pkg-card__badge--soon">BRZY</div>
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">TRACK INTRO</h3>
+              <div class="pkg-card__duration">? min</div>
+            </div>
+            <div class="pkg-card__price pkg-card__price--tbd">
+              <span class="pkg-card__tbd">Cena brzy</span>
+            </div>
+            <p class="pkg-card__tagline">První kontakt s okruhem Sosnová</p>
+            <ul class="pkg-card__features">
+              <li>Spolujízda se zkušeným jezdcem</li>
+              <li>Okruh Sosnová — Česká Lípa</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="track-intro" data-exp="sosnova">REZERVOVAT</a>
+          </div>
+
+          <div class="pkg-card pkg-card--featured">
+            <div class="pkg-card__badge">DOPORUČUJEME</div>
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">TRACK SESSION</h3>
+              <div class="pkg-card__duration">? min</div>
+            </div>
+            <div class="pkg-card__price pkg-card__price--tbd">
+              <span class="pkg-card__tbd">Cena brzy</span>
+            </div>
+            <p class="pkg-card__tagline">Série kol s instruktorem — naučíš se okruh</p>
+            <ul class="pkg-card__features">
+              <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+              <li>Okruh Sosnová — Česká Lípa</li>
+              <li>Focení a prohlídka auta</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--primary pkg-card__btn" data-select="track-session" data-exp="sosnova">REZERVOVAT</a>
+          </div>
+
+          <div class="pkg-card">
+            <div class="pkg-card__badge pkg-card__badge--soon">BRZY</div>
+            <div class="pkg-card__header">
+              <h3 class="pkg-card__name">TRACK MASTER</h3>
+              <div class="pkg-card__duration">? min</div>
+            </div>
+            <div class="pkg-card__price pkg-card__price--tbd">
+              <span class="pkg-card__tbd">Cena brzy</span>
+            </div>
+            <p class="pkg-card__tagline">Plný trackday zážitek na hranici možností EVO 7</p>
+            <ul class="pkg-card__features">
+              <li>Řízení nebo spolujízda se zkušeným jezdcem</li>
+              <li>Intenzivní trénink na okruhu</li>
+              <li>Okruh Sosnová — Česká Lípa</li>
+              <li>Focení a prohlídka auta</li>
+              <li>Pojištění se spoluúčastí</li>
+            </ul>
+            <a href="#rezervace" class="btn btn--outline pkg-card__btn" data-select="track-master" data-exp="sosnova">REZERVOVAT</a>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -171,19 +311,19 @@
       </div>
       <div class="gallery">
         <div class="gallery__item gallery__item--tall">
-          <div class="gallery__placeholder">FOTO 1</div>
+          <img src="photos/4.jpg" alt="EVO7 Experience" loading="lazy">
         </div>
         <div class="gallery__item">
-          <div class="gallery__placeholder">FOTO 2</div>
+          <img src="photos/1.jpg" alt="EVO7 Experience" loading="lazy">
         </div>
         <div class="gallery__item">
-          <div class="gallery__placeholder">FOTO 3</div>
+          <img src="photos/5.jpg" alt="EVO7 Experience" loading="lazy" style="object-position: 30% center;">
         </div>
         <div class="gallery__item gallery__item--wide">
-          <div class="gallery__placeholder">FOTO 4</div>
+          <img src="photos/3.jpg" alt="EVO7 Experience" loading="lazy" style="object-position: center 70%;">
         </div>
         <div class="gallery__item">
-          <div class="gallery__placeholder">FOTO 5</div>
+          <img src="photos/2.jpg" alt="EVO7 Experience" loading="lazy">
         </div>
       </div>
     </div>
@@ -199,8 +339,8 @@
       <div class="steps">
         <div class="step">
           <div class="step__num">01</div>
-          <h3 class="step__title">VYBER BALÍČEK</h3>
-          <p class="step__desc">Zvol si zážitek podle toho, kolik času chceš strávit za volantem legendy.</p>
+          <h3 class="step__title">VYBER ZÁŽITEK</h3>
+          <p class="step__desc">Okresky nebo okruh Sosnová — zvol balíček podle toho, co chceš zažít.</p>
         </div>
         <div class="step__arrow">&#8594;</div>
         <div class="step">
@@ -238,7 +378,7 @@
         <div class="wizard__progress">
           <div class="wizard__prog-step active" data-step="1">
             <div class="wizard__prog-num">1</div>
-            <div class="wizard__prog-label">BALÍČEK</div>
+            <div class="wizard__prog-label">ZÁŽITEK</div>
           </div>
           <div class="wizard__prog-line"></div>
           <div class="wizard__prog-step" data-step="2">
@@ -257,26 +397,70 @@
           </div>
         </div>
 
-        <!-- KROK 1: Balíček -->
+        <!-- KROK 1: Zážitek + Balíček -->
         <div class="wizard__panel active" id="panel1">
-          <h3 class="wizard__panel-title">Vyber balíček</h3>
-          <div class="wizard__pkgs">
-            <div class="wizard__pkg" data-pkg="starter">
-              <div class="wizard__pkg-name">STARTER</div>
-              <div class="wizard__pkg-dur">15 min</div>
-              <div class="wizard__pkg-price">1 490 Kč</div>
-            </div>
-            <div class="wizard__pkg" data-pkg="street">
-              <div class="wizard__pkg-name">STREET</div>
-              <div class="wizard__pkg-dur">30 min</div>
-              <div class="wizard__pkg-price">2 990 Kč</div>
-            </div>
-            <div class="wizard__pkg" data-pkg="rally">
-              <div class="wizard__pkg-name">RALLY</div>
-              <div class="wizard__pkg-dur">60 min</div>
-              <div class="wizard__pkg-price">5 990 Kč</div>
+          <h3 class="wizard__panel-title">Vyber zážitek a balíček</h3>
+
+          <!-- Experience switcher ve wizardu -->
+          <div class="exp-tabs exp-tabs--sm" id="wizardTabs">
+            <button class="exp-tab active" data-exp="okresky">
+              <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6l9-3 9 3M3 18l9 3 9-3"/></svg>
+              <div>
+                <div class="exp-tab__name">OKRESKY</div>
+                <div class="exp-tab__sub">Severní Čechy</div>
+              </div>
+            </button>
+            <button class="exp-tab" data-exp="sosnova">
+              <svg class="exp-tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <div>
+                <div class="exp-tab__name">OKRUH SOSNOVÁ</div>
+                <div class="exp-tab__sub">Závodní okruh</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Okresky balíčky ve wizardu -->
+          <div class="exp-panel active" data-exp-panel="okresky-wizard">
+            <div class="wizard__pkgs">
+              <div class="wizard__pkg" data-pkg="starter" data-exp="okresky">
+                <div class="wizard__pkg-name">STARTER</div>
+                <div class="wizard__pkg-dur">15 min</div>
+                <div class="wizard__pkg-price">1 490 Kč</div>
+              </div>
+              <div class="wizard__pkg" data-pkg="street" data-exp="okresky">
+                <div class="wizard__pkg-name">STREET</div>
+                <div class="wizard__pkg-dur">30 min</div>
+                <div class="wizard__pkg-price">2 990 Kč</div>
+              </div>
+              <div class="wizard__pkg" data-pkg="rally" data-exp="okresky">
+                <div class="wizard__pkg-name">RALLY</div>
+                <div class="wizard__pkg-dur">60 min</div>
+                <div class="wizard__pkg-price">5 990 Kč</div>
+              </div>
             </div>
           </div>
+
+          <!-- Sosnová balíčky ve wizardu -->
+          <div class="exp-panel" data-exp-panel="sosnova-wizard">
+            <div class="wizard__pkgs">
+              <div class="wizard__pkg" data-pkg="track-intro" data-exp="sosnova">
+                <div class="wizard__pkg-name">TRACK INTRO</div>
+                <div class="wizard__pkg-dur">? min</div>
+                <div class="wizard__pkg-price">Cena brzy</div>
+              </div>
+              <div class="wizard__pkg" data-pkg="track-session" data-exp="sosnova">
+                <div class="wizard__pkg-name">TRACK SESSION</div>
+                <div class="wizard__pkg-dur">? min</div>
+                <div class="wizard__pkg-price">Cena brzy</div>
+              </div>
+              <div class="wizard__pkg" data-pkg="track-master" data-exp="sosnova">
+                <div class="wizard__pkg-name">TRACK MASTER</div>
+                <div class="wizard__pkg-dur">? min</div>
+                <div class="wizard__pkg-price">Cena brzy</div>
+              </div>
+            </div>
+          </div>
+
           <div class="wizard__actions">
             <button class="btn btn--primary" id="btn1Next" disabled>POKRAČOVAT &#8594;</button>
           </div>
@@ -350,7 +534,7 @@
           <div class="wizard__success">
             <div class="wizard__success-icon">&#10003;</div>
             <h3 class="wizard__success-title">REZERVACE POTVRZENA!</h3>
-            <p class="wizard__success-text">Potvrzení bylo odesláno na tvůj e-mail. Těšíme se na tebe na okreskách!</p>
+            <p class="wizard__success-text">Potvrzení bylo odesláno na tvůj e-mail. Těšíme se na tebe!</p>
             <button class="btn btn--primary" id="btnReset">NOVÁ REZERVACE</button>
           </div>
         </div>

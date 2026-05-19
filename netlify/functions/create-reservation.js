@@ -1,11 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
+const nodemailer = require('nodemailer');
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-// Email from which confirmations are sent (must be verified in Resend)
-const FROM_EMAIL = process.env.FROM_EMAIL || 'rezervace@evo7experience.cz';
-const OWNER_EMAIL = process.env.OWNER_EMAIL || 'rezervace@evo7experience.cz';
+const GMAIL_USER  = process.env.GMAIL_USER;
+const GMAIL_PASS  = process.env.GMAIL_PASS;
+const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
 
 const RIDE_DURATION = { starter: 15, street: 30, rally: 60 };
 const BUFFER = 60;
@@ -30,23 +30,21 @@ function formatDateCZ(isoDate) {
   return d.toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-async function sendEmail({ to, subject, html }) {
-  if (!RESEND_API_KEY) {
-    console.warn('RESEND_API_KEY není nastavený — email se neodesílá.');
-    return;
+function createTransporter() {
+  if (!GMAIL_USER || !GMAIL_PASS) {
+    console.warn('GMAIL_USER / GMAIL_PASS nejsou nastaveny — email se neodesílá.');
+    return null;
   }
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ from: FROM_EMAIL, to, subject, html }),
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: GMAIL_USER, pass: GMAIL_PASS },
   });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Resend chyba: ${err}`);
-  }
+}
+
+async function sendEmail({ to, subject, html }) {
+  const transporter = createTransporter();
+  if (!transporter) return;
+  await transporter.sendMail({ from: `"EVO7 Experience" <${GMAIL_USER}>`, to, subject, html });
 }
 
 exports.handler = async (event) => {
@@ -70,7 +68,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Neplatný JSON.' }) };
   }
 
-  const { package: pkg, date, time, name, email, phone, note } = body;
+  const { experience = 'okresky', package: pkg, date, time, name, email, phone, note } = body;
 
   if (!pkg || !date || !time || !name || !email || !phone) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Chybí povinná pole.' }) };
@@ -92,6 +90,7 @@ exports.handler = async (event) => {
     .from('reservations')
     .select('id')
     .eq('date', date)
+    .eq('experience', experience)
     .eq('status', 'confirmed')
     .lt('start_time', endTime)
     .gt('end_time', time);
@@ -109,6 +108,7 @@ exports.handler = async (event) => {
   const { data: reservation, error: insertErr } = await supabase
     .from('reservations')
     .insert([{
+      experience,
       package:    pkg,
       date,
       start_time: time,
@@ -127,8 +127,10 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Rezervaci se nepodařilo uložit.' }) };
   }
 
+  const EXP_LABELS  = { okresky: 'Okresky — Severní Čechy', sosnova: 'Okruh Sosnová' };
   const dateCZ      = formatDateCZ(date);
-  const pkgLabel    = PACKAGE_LABELS[pkg];
+  const pkgLabel    = PACKAGE_LABELS[pkg] || pkg;
+  const expLabel    = EXP_LABELS[experience] || experience;
 
   // Email zákazníkovi
   const customerHtml = `
@@ -140,6 +142,7 @@ exports.handler = async (event) => {
       <h2 style="color:#FFE600;font-size:20px;margin:0 0 24px;letter-spacing:1px;">✓ REZERVACE POTVRZENA</h2>
       <table style="width:100%;border-collapse:collapse;">
         ${[
+          ['Zážitek', expLabel],
           ['Balíček', pkgLabel],
           ['Datum',   dateCZ],
           ['Čas',     time],
@@ -166,6 +169,7 @@ exports.handler = async (event) => {
       <h2 style="color:#000;">Nová rezervace EVO7 Experience</h2>
       <table style="border-collapse:collapse;width:100%;">
         ${[
+          ['Zážitek',  expLabel],
           ['Balíček',  pkgLabel],
           ['Datum',    dateCZ],
           ['Čas',      time],

@@ -1,0 +1,9 @@
+User-agent: *
+# Admin panel nesmí být indexován
+Disallow: /admin.html
+Disallow: /js/admin.js
+Disallow: /js/supabase-config.js
+Disallow: /css/admin.css
+
+# Hlavní web je indexovatelný
+Allow: /

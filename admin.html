@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVO7 Admin</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ── LOGIN ─────────────────────────────────────────────── -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">EVO<span>7</span> <small>ADMIN</small></div>
+      <form class="login-form" id="loginForm">
+        <div class="login-group">
+          <label class="login-label">E-mail</label>
+          <input type="email" id="adminEmail" class="login-input" placeholder="admin@evo7.cz" autocomplete="username" required>
+        </div>
+        <div class="login-group">
+          <label class="login-label">Heslo</label>
+          <input type="password" id="adminPassword" class="login-input" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <p class="login-error" id="loginError"></p>
+        <button type="submit" class="login-btn" id="loginBtn">PŘIHLÁSIT SE</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD ─────────────────────────────────────────── -->
+  <div class="dashboard hidden" id="dashboard">
+
+    <!-- Header -->
+    <header class="admin-header">
+      <span class="admin-logo">EVO<span>7</span> <small>ADMIN</small></span>
+      <nav class="admin-nav">
+        <button class="admin-nav__btn active" data-tab="rezervace">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+          REZERVACE
+        </button>
+        <button class="admin-nav__btn" data-tab="dostupnost">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+          DOSTUPNOST
+        </button>
+      </nav>
+      <button class="admin-logout" id="logoutBtn" title="Odhlásit se">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/></svg>
+        Odhlásit
+      </button>
+    </header>
+
+    <main class="admin-main">
+
+      <!-- ── TAB: REZERVACE ───────────────────────────────── -->
+      <div class="admin-tab active" id="tab-rezervace">
+
+        <!-- Statistiky -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-card__num" id="statTotal">—</span>
+            <span class="stat-card__label">Celkem rezervací</span>
+          </div>
+          <div class="stat-card stat-card--accent">
+            <span class="stat-card__num" id="statUpcoming">—</span>
+            <span class="stat-card__label">Nadcházející</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num" id="statToday">—</span>
+            <span class="stat-card__label">Dnes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num" id="statOkresky">—</span>
+            <span class="stat-card__label">Okresky</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num" id="statSosnova">—</span>
+            <span class="stat-card__label">Sosnová</span>
+          </div>
+        </div>
+
+        <!-- Filtry -->
+        <div class="filters-bar">
+          <input type="text" class="filter-input" id="searchInput" placeholder="🔍  Hledat jméno, e-mail, telefon…">
+          <select class="filter-select" id="filterExp">
+            <option value="">Všechny zážitky</option>
+            <option value="okresky">Okresky</option>
+            <option value="sosnova">Okruh Sosnová</option>
+          </select>
+          <select class="filter-select" id="filterStatus">
+            <option value="">Všechny statusy</option>
+            <option value="confirmed">Potvrzené</option>
+            <option value="cancelled">Zrušené</option>
+          </select>
+          <input type="date" class="filter-input filter-input--date" id="filterDate">
+          <button class="filter-clear" id="clearFilters">Zrušit filtry</button>
+        </div>
+
+        <!-- Tabulka -->
+        <div class="table-wrap">
+          <table class="res-table" id="resTable">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="date">DATUM <span class="sort-icon">↕</span></th>
+                <th>ČAS</th>
+                <th>ZÁŽITEK</th>
+                <th>BALÍČEK</th>
+                <th>JMÉNO</th>
+                <th>TELEFON</th>
+                <th>E-MAIL</th>
+                <th>STATUS</th>
+                <th>AKCE</th>
+              </tr>
+            </thead>
+            <tbody id="resBody">
+              <tr><td colspan="9" class="table-loading">Načítám rezervace…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ── TAB: DOSTUPNOST ──────────────────────────────── -->
+      <div class="admin-tab hidden" id="tab-dostupnost">
+
+        <div class="avail-layout">
+
+          <!-- Levý panel — výběr dne -->
+          <div class="avail-picker">
+            <h2 class="avail-title">Vyber den</h2>
+            <div class="avail-exp-tabs">
+              <button class="avail-exp active" data-exp="okresky">OKRESKY</button>
+              <button class="avail-exp" data-exp="sosnova">SOSNOVÁ</button>
+              <button class="avail-exp" data-exp="all">OBĚ</button>
+            </div>
+            <input type="text" id="availDatePicker" class="avail-date-input" placeholder="Klikni pro výběr data" readonly>
+            <p class="avail-hint">Vyber den a zážitek, pak nastav dostupnost vpravo.</p>
+          </div>
+
+          <!-- Pravý panel — akce pro daný den -->
+          <div class="avail-actions" id="availActions">
+            <div class="avail-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <p>Vyber den v kalendáři</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ── MODÁL: Zrušit rezervaci ──────────────────────────── -->
+  <div class="modal-backdrop hidden" id="cancelModal">
+    <div class="modal">
+      <h3 class="modal__title">Zrušit rezervaci</h3>
+      <p class="modal__text">Opravdu chceš zrušit tuto rezervaci?</p>
+      <div class="modal__detail" id="cancelDetail"></div>
+      <div class="modal__actions">
+        <button class="btn-ghost" id="cancelModalClose">Zpět</button>
+        <button class="btn-danger" id="cancelModalConfirm">ANO, ZRUŠIT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODÁL: Blokovat čas ──────────────────────────────── -->
+  <div class="modal-backdrop hidden" id="blockTimeModal">
+    <div class="modal">
+      <h3 class="modal__title">Blokovat konkrétní časy</h3>
+      <p class="modal__text" id="blockTimeModalDesc"></p>
+      <div class="slot-grid" id="slotGrid"></div>
+      <div class="modal__actions">
+        <button class="btn-ghost" id="blockTimeModalClose">Zavřít</button>
+        <button class="btn-primary" id="blockTimeModalSave">ULOŽIT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODÁL: Vlastní hodiny ────────────────────────────── -->
+  <div class="modal-backdrop hidden" id="customHoursModal">
+    <div class="modal">
+      <h3 class="modal__title">Vlastní provozní hodiny</h3>
+      <p class="modal__text" id="customHoursModalDesc"></p>
+      <div class="hours-inputs">
+        <div class="hours-group">
+          <label class="hours-label">Od</label>
+          <input type="time" id="customStart" class="hours-input" value="15:00">
+        </div>
+        <span class="hours-sep">—</span>
+        <div class="hours-group">
+          <label class="hours-label">Do</label>
+          <input type="time" id="customEnd" class="hours-input" value="20:00">
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button class="btn-ghost" id="customHoursModalClose">Zrušit</button>
+        <button class="btn-primary" id="customHoursModalSave">ULOŽIT HODINY</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifikace -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/cs.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
