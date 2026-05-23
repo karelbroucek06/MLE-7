@@ -13,7 +13,7 @@
   --border:       rgba(255, 230, 0, 0.18);
   --border-dim:   rgba(255, 255, 255, 0.08);
   --radius:       3px;
-  --font-head:    'Orbitron', 'Exo 2', monospace;
+  --font-head:    'Oxanium', sans-serif;
   --font-body:    'Inter', sans-serif;
   --container:    1200px;
   --nav-h:        72px;
@@ -106,7 +106,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 40px;
 }
 .nav__logo {
-  font-family: var(--font-head);
+  font-family: 'Orbitron', monospace;
   font-size: 22px;
   font-weight: 900;
   letter-spacing: 0.05em;

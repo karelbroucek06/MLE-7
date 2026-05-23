@@ -5,6 +5,10 @@
 [functions]
   node_bundler = "esbuild"
 
+# ── Reminder e-maily — každý den v 8:00 UTC (9:00 CET / 10:00 CEST) ──
+[functions."send-reminders"]
+  schedule = "0 8 * * *"
+
 # ── Bezpečnostní hlavičky (celý web) ──────────────────────────
 [[headers]]
   for = "/*"
