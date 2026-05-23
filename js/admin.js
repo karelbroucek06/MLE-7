@@ -284,13 +284,39 @@ async function loadAvailDay() {
 }
 
 function renderAvailDay(date, exp, blocks, reservations) {
-  const actionsEl = document.getElementById('availActions');
+  const actionsEl    = document.getElementById('availActions');
   const isFullBlocked = blocks.some(b => b.block_type === 'full_day');
+  const isOpenDay     = blocks.some(b => b.block_type === 'open_day');
   const customHours   = blocks.find(b => b.block_type === 'custom_hours');
   const timeBlocks    = blocks.filter(b => b.block_type === 'time_slot').map(b => b.start_time?.slice(0,5));
+  const startH        = customHours ? customHours.start_time?.slice(0,5) : '15:00';
+  const endH          = customHours ? customHours.end_time?.slice(0,5)   : '20:00';
 
-  const startH = customHours ? customHours.start_time?.slice(0,5) : '15:00';
-  const endH   = customHours ? customHours.end_time?.slice(0,5)   : '20:00';
+  // ── Sosnová: blokováno by default, odemyká se přes open_day ──
+  if (exp === 'sosnova' && !isOpenDay) {
+    actionsEl.innerHTML = `
+      <div class="avail-day-header">
+        <div>
+          <div class="avail-day-title">${dateCZ(date)}</div>
+          <div class="avail-day-exp">${EXP_LABEL[exp]}</div>
+        </div>
+      </div>
+      <div class="avail-content">
+        <div class="avail-section">
+          <div class="avail-section-title">DOSTUPNOST OKRUHU</div>
+          <div class="avail-toggle blocked">
+            <div class="avail-toggle__info">
+              <div class="avail-toggle__label">⚫ Den není naplánován</div>
+              <div class="avail-toggle__sub">Zákazníci si nemohou rezervovat termíny</div>
+            </div>
+            <button class="avail-btn avail-btn--unblock" id="btnOpenDay">PŘIDAT DOSTUPNOST</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.getElementById('btnOpenDay').addEventListener('click', () => openDay(date));
+    return;
+  }
 
   actionsEl.innerHTML = `
     <div class="avail-day-header">
@@ -301,17 +327,19 @@ function renderAvailDay(date, exp, blocks, reservations) {
     </div>
     <div class="avail-content">
 
-      <!-- 1. Blokování celého dne -->
+      <!-- 1. Stav dne -->
       <div class="avail-section">
-        <div class="avail-section-title">BLOKOVÁNÍ DNE</div>
+        <div class="avail-section-title">${exp === 'sosnova' ? 'DOSTUPNOST OKRUHU' : 'BLOKOVÁNÍ DNE'}</div>
         <div class="avail-toggle ${isFullBlocked ? 'blocked' : ''}">
           <div class="avail-toggle__info">
             <div class="avail-toggle__label">${isFullBlocked ? '🔴 Den je zablokován' : '🟢 Den je dostupný'}</div>
             <div class="avail-toggle__sub">${isFullBlocked ? 'Žádné rezervace nelze přijmout' : 'Rezervace jsou možné'}</div>
           </div>
-          ${isFullBlocked
-            ? `<button class="avail-btn avail-btn--unblock" id="btnUnblockDay">ODBLOKOVAT</button>`
-            : `<button class="avail-btn avail-btn--danger" id="btnBlockDay">ZABLOKOVAT DEN</button>`
+          ${exp === 'sosnova'
+            ? `<button class="avail-btn avail-btn--danger" id="btnCloseDay">ODEBRAT DOSTUPNOST</button>`
+            : isFullBlocked
+              ? `<button class="avail-btn avail-btn--unblock" id="btnUnblockDay">ODBLOKOVAT</button>`
+              : `<button class="avail-btn avail-btn--danger" id="btnBlockDay">ZABLOKOVAT DEN</button>`
           }
         </div>
       </div>
@@ -352,7 +380,10 @@ function renderAvailDay(date, exp, blocks, reservations) {
     </div>
   `;
 
-  // Blokovat / Odblokovat celý den
+  // Sosnová — odebrat dostupnost
+  document.getElementById('btnCloseDay')?.addEventListener('click', () => closeDay(date));
+
+  // Okresky — blokovat / odblokovat celý den
   document.getElementById('btnBlockDay')?.addEventListener('click', () => blockDay(date, exp));
   document.getElementById('btnUnblockDay')?.addEventListener('click', () => unblockDay(date, exp));
 
@@ -384,6 +415,25 @@ async function unblockDay(date, exp) {
     .in('experience', expFilter);
   if (error) showToast('Chyba při odblokování.', 'err');
   else { showToast('Den byl odblokován.', 'ok'); loadAvailDay(); }
+}
+
+// Sosnová — přidat / odebrat dostupný den
+async function openDay(date) {
+  const { error } = await sb.from('availability_blocks').insert([{
+    experience: 'sosnova', date, block_type: 'open_day',
+  }]);
+  if (error) showToast('Chyba při přidávání dostupnosti.', 'err');
+  else { showToast('Dostupnost přidána.', 'ok'); loadAvailDay(); }
+}
+
+async function closeDay(date) {
+  const { error } = await sb.from('availability_blocks')
+    .delete()
+    .eq('date', date)
+    .eq('experience', 'sosnova')
+    .eq('block_type', 'open_day');
+  if (error) showToast('Chyba při odebírání dostupnosti.', 'err');
+  else { showToast('Dostupnost odebrána.', 'ok'); loadAvailDay(); }
 }
 
 // Vlastní hodiny

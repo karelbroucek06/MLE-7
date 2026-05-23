@@ -85,7 +85,13 @@ exports.handler = async (event) => {
   const reservations = resResult.data || [];
   const blocks       = blocksResult.data || [];
 
-  // 1. Celý den zablokován?
+  // 1a. Sosnová — blokováno by default, musí existovat open_day blok
+  if (experience === 'sosnova') {
+    const isOpen = blocks.some(b => b.block_type === 'open_day');
+    if (!isOpen) return { statusCode: 200, headers, body: JSON.stringify({ slots: [], reason: 'not_scheduled' }) };
+  }
+
+  // 1b. Celý den zablokován?
   if (blocks.some(b => b.block_type === 'full_day')) {
     return { statusCode: 200, headers, body: JSON.stringify({ slots: [], reason: 'full_day_block' }) };
   }
