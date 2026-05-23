@@ -9,8 +9,11 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const EXP_LABEL = { okresky: 'Okresky', sosnova: 'Okruh Sosnová', all: 'Obě' };
 const PKG_LABEL = {
-  starter: 'Starter 15 min', street: 'Street 30 min', rally: 'Rally 60 min',
-  'track-intro': 'Track Intro', 'track-session': 'Track Session', 'track-master': 'Track Master',
+  starter:    'Starter 15 min',
+  street:     'Street 30 min',
+  rally:      'Rally 60 min',
+  '2-kola':   '2 kola (Sosnová)',
+  'vice-kol': 'Více kol (Sosnová)',
 };
 const STATUS_LABEL = { confirmed: 'Potvrzena', cancelled: 'Zrušena' };
 
