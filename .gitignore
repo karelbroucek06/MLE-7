@@ -1,0 +1,9 @@
+# Supabase config — generuje se automaticky při Netlify buildu z env proměnných
+js/supabase-config.js
+
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
