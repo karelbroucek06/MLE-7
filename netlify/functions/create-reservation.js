@@ -7,13 +7,15 @@ const GMAIL_USER  = process.env.GMAIL_USER;
 const GMAIL_PASS  = process.env.GMAIL_PASS;
 const OWNER_EMAIL = process.env.OWNER_EMAIL || GMAIL_USER;
 
-const RIDE_DURATION = { starter: 15, street: 30, rally: 60 };
+const RIDE_DURATION = { starter: 15, street: 30, rally: 60, '2-kola': 30, 'vice-kol': 60 };
 const BUFFER = 60;
 
 const PACKAGE_LABELS = {
-  starter: 'STARTER — 15 min — 1 490 Kč',
-  street:  'STREET — 30 min — 2 990 Kč',
-  rally:   'RALLY — 60 min — 5 990 Kč',
+  starter:    'STARTER — 15 min — 1 490 Kč',
+  street:     'STREET — 30 min — 2 990 Kč',
+  rally:      'RALLY — 60 min — 5 990 Kč',
+  '2-kola':   '2 KOLA — 2 × 1,6 km — 4 000 Kč',
+  'vice-kol': 'VÍCE KOL — individuální dohoda',
 };
 
 function timeStrToMinutes(t) {

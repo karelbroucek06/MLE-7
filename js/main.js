@@ -8,9 +8,8 @@ const PACKAGES = {
   street:        { label: 'STREET',          duration: 30, price: '2 990 Kč', exp: 'okresky' },
   rally:         { label: 'RALLY',           duration: 60, price: '5 990 Kč', exp: 'okresky' },
   // Sosnová
-  'track-intro':   { label: 'TRACK INTRO',   duration: 15, price: 'TBD',      exp: 'sosnova' },
-  'track-session': { label: 'TRACK SESSION', duration: 30, price: 'TBD',      exp: 'sosnova' },
-  'track-master':  { label: 'TRACK MASTER',  duration: 60, price: 'TBD',      exp: 'sosnova' },
+  '2-kola':   { label: '2 KOLA',    duration: 30, price: '4 000 Kč',     exp: 'sosnova' },
+  'vice-kol': { label: 'VÍCE KOL',  duration: 60, price: 'Individuální', exp: 'sosnova' },
 };
 
 const EXP_LABELS = {

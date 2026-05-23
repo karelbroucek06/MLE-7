@@ -379,6 +379,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 24px;
   align-items: start;
 }
+.packages--centered {
+  grid-template-columns: repeat(2, minmax(0, 380px));
+  justify-content: center;
+}
 .pkg-card {
   position: relative;
   background: var(--bg-card);

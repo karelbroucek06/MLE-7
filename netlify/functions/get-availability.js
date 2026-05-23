@@ -3,7 +3,7 @@ const { createClient } = require('@supabase/supabase-js');
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
-const RIDE_DURATION = { starter: 15, street: 30, rally: 60, 'track-intro': 15, 'track-session': 30, 'track-master': 60 };
+const RIDE_DURATION = { starter: 15, street: 30, rally: 60, '2-kola': 30, 'vice-kol': 60 };
 const BUFFER        = 60;
 
 // Výchozí provozní okno (přepsatelné custom_hours blokem)
