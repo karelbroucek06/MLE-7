@@ -129,7 +129,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color var(--transition);
 }
 .nav__link:hover { color: var(--accent); }
-.nav__cta { margin-left: auto; flex-shrink: 0; }
+.nav__cta { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
 .nav__hamburger {
   display: none;
   flex-direction: column;
