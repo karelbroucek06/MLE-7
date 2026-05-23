@@ -928,6 +928,9 @@ a.contact__value:hover { color: var(--accent); }
 }
 .footer__logo span { color: var(--accent); }
 .footer__copy { font-size: 13px; color: var(--text-muted); }
+.footer__credit { text-align: center; margin-top: 12px; font-size: 12px; color: #444; }
+.footer__credit a { color: #666; text-decoration: none; transition: color var(--transition); }
+.footer__credit a:hover { color: var(--accent); }
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 700px) {
