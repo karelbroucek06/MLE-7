@@ -4,11 +4,11 @@
 
 const PACKAGES = {
   // Okresky
-  starter:       { label: 'STARTER',        duration: 15, price: '1 490 Kč', exp: 'okresky' },
+  starter:       { label: 'STARTER',        duration: 15, price: '1 690 Kč', exp: 'okresky' },
   street:        { label: 'STREET',          duration: 30, price: '2 990 Kč', exp: 'okresky' },
-  rally:         { label: 'RALLY',           duration: 60, price: '5 990 Kč', exp: 'okresky' },
+  rally:         { label: 'RALLY',           duration: 60, price: '5 490 Kč', exp: 'okresky' },
   // Sosnová
-  '2-kola':   { label: '2 KOLA',    duration: 30, price: '4 000 Kč',     exp: 'sosnova' },
+  '2-kola':   { label: '2 KOLA',    duration: 30, price: '3 490 Kč',     exp: 'sosnova' },
   'vice-kol': { label: 'VÍCE KOL',  duration: 60, price: 'Individuální', exp: 'sosnova' },
 };
 

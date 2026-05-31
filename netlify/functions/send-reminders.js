@@ -18,10 +18,10 @@ const EXP_LABELS = {
 };
 
 const PACKAGE_LABELS = {
-  starter:    'STARTER — 15 min — 1 490 Kč',
+  starter:    'STARTER — 15 min — 1 690 Kč',
   street:     'STREET — 30 min — 2 990 Kč',
-  rally:      'RALLY — 60 min — 5 990 Kč',
-  '2-kola':   '2 KOLA — 2 × 1,6 km — 4 000 Kč',
+  rally:      'RALLY — 60 min — 5 490 Kč',
+  '2-kola':   '2 KOLA — 2 × 1,6 km — 3 490 Kč',
   'vice-kol': 'VÍCE KOL — individuální dohoda',
 };
 
