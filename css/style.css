@@ -897,11 +897,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .announcement {
   background: var(--accent);
   color: #000;
-  padding: 10px 24px;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 32px;
 }
 .announcement__inner {
-  max-width: 1100px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 12px;
