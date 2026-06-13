@@ -876,6 +876,57 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .numInputWrapper span { border-color: var(--border-dim) !important; }
 .numInputWrapper span:hover { background: var(--accent-dim) !important; }
 
+/* Available-day dot indicator */
+.flatpickr-day.avail-dot { position: relative; }
+.flatpickr-day.avail-dot::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+}
+.flatpickr-day.avail-dot.selected::after { background: #000; }
+.flatpickr-day.avail-dot.flatpickr-disabled::after { display: none; }
+
+/* ── Announcement banner ────────────────────────────────────── */
+.announcement {
+  background: var(--accent);
+  color: #000;
+  padding: 10px 24px;
+}
+.announcement__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.announcement__text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}
+.announcement__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: #000;
+  padding: 0 4px;
+  line-height: 1;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: opacity var(--transition);
+}
+.announcement__close:hover { opacity: 1; }
+
 /* ── Kontakt ────────────────────────────────────────────────── */
 .kontakt { background: var(--bg); }
 .contact {

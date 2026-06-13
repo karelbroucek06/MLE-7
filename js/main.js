@@ -81,6 +81,7 @@ document.querySelectorAll('.exp-tab').forEach(tab => {
       document.querySelectorAll('.wizard__pkg').forEach(el => el.classList.remove('selected'));
       document.getElementById('btn1Next').disabled = true;
       if (state.date) fetchSlots(state.date);
+      refreshAvailDays();
     }
 
     syncExpTabs(exp);
@@ -95,6 +96,7 @@ document.querySelectorAll('[data-select]').forEach(btn => {
     // Přepni experience a balíček
     state.experience = exp;
     syncExpTabs(exp);
+    refreshAvailDays();
     selectPackage(pkg);
   });
 });
@@ -145,17 +147,59 @@ document.getElementById('btn1Next').addEventListener('click', () => {
   document.querySelector('#rezervace').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
+/* ── Announcement banner ──────────────────────────────────── */
+(async () => {
+  try {
+    const res  = await fetch('/.netlify/functions/get-announcement');
+    const { text } = await res.json();
+    if (text) {
+      document.getElementById('announcementText').textContent = text;
+      document.getElementById('announcement').classList.remove('hidden');
+    }
+  } catch { /* silently ignore */ }
+})();
+
+document.getElementById('announcementClose').addEventListener('click', () => {
+  document.getElementById('announcement').classList.add('hidden');
+});
+
 /* ── Step 2: Datum & Čas ──────────────────────────────────── */
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
-flatpickr('#datePicker', {
+let availableDays = new Set();
+let fpInst = null;
+
+async function fetchAvailableDays(exp, year, month) {
+  try {
+    const res  = await fetch(`/.netlify/functions/get-available-days?experience=${exp}&year=${year}&month=${month}`);
+    const data = await res.json();
+    availableDays = new Set(data.available || []);
+    if (fpInst) fpInst.redraw();
+  } catch { /* ignore */ }
+}
+
+function refreshAvailDays() {
+  if (!fpInst) return;
+  fetchAvailableDays(state.experience, fpInst.currentYear, fpInst.currentMonth + 1);
+}
+
+fpInst = flatpickr('#datePicker', {
   locale: 'cs',
   minDate: new Date(today.getTime() + 86400000),
   dateFormat: 'Y-m-d',
   altInput: true,
   altFormat: 'j. F Y',
   disableMobile: false,
+  onReady:       () => refreshAvailDays(),
+  onMonthChange: () => refreshAvailDays(),
+  onYearChange:  () => refreshAvailDays(),
+  onDayCreate: (dObj, dStr, fp, dayElem) => {
+    const d = dayElem.dateObj;
+    if (d && availableDays.has(formatDate(d))) {
+      dayElem.classList.add('avail-dot');
+    }
+  },
   onChange: ([date]) => {
     const iso = formatDate(date);
     state.date = iso;

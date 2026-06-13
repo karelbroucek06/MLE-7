@@ -79,7 +79,7 @@ document.querySelectorAll('.admin-nav__btn').forEach(btn => {
     btn.classList.add('active');
     document.getElementById(`tab-${tab}`).classList.remove('hidden');
     document.getElementById(`tab-${tab}`).classList.add('active');
-    if (tab === 'dostupnost') initAvailability();
+    if (tab === 'dostupnost') { initAvailability(); loadAnnouncement(); }
   });
 });
 
@@ -232,6 +232,37 @@ document.getElementById('cancelModalConfirm').addEventListener('click', async ()
     await loadReservations();
   }
 });
+
+// ── OZNÁMENÍ ─────────────────────────────────────────────────
+
+async function loadAnnouncement() {
+  const { data } = await sb.from('settings').select('value').eq('key', 'announcement').maybeSingle();
+  const ta = document.getElementById('announcementInput');
+  if (ta) ta.value = data?.value || '';
+}
+
+async function saveAnnouncement() {
+  const text = (document.getElementById('announcementInput').value || '').trim();
+  const btn  = document.getElementById('announcementSaveBtn');
+  btn.disabled = true;
+  btn.textContent = 'UKLÁDÁM…';
+
+  const { error } = await sb.from('settings').upsert(
+    { key: 'announcement', value: text, updated_at: new Date().toISOString() },
+    { onConflict: 'key' }
+  );
+
+  btn.disabled = false;
+  btn.textContent = 'ULOŽIT OZNÁMENÍ';
+
+  if (error) {
+    showToast('Chyba při ukládání oznámení.', 'err');
+  } else {
+    showToast(text ? 'Oznámení bylo uloženo a je živé na webu.' : 'Oznámení bylo odstraněno.', 'ok');
+  }
+}
+
+document.getElementById('announcementSaveBtn').addEventListener('click', saveAnnouncement);
 
 // ── DOSTUPNOST ───────────────────────────────────────────────
 
